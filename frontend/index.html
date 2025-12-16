@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Frontend QA</title>
+  <title>Hola Mundo Frontend</title>
 </head>
 <body>
-  <h1>Frontend funcionando</h1>
-  <p>Proyecto Docker + AWS Academy</p>
+  <h1>Frontend</h1>
+  <button onclick="saludar()">Saludar</button>
+  <p id="respuesta"></p>
+
+  <script>
+    function saludar() {
+      fetch("http://localhost:3000/")
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById("respuesta").innerText = data;
+        });
+    }
+  </script>
 </body>
 </html>
