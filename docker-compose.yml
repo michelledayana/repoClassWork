@@ -1,24 +1,59 @@
-version: "3"
+version: '3.8'
 
 services:
-  frontend:
-    build: ./frontend
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgresql
+      POSTGRES_PASSWORD: dayana
+      POSTGRES_DB: holamundo
     ports:
-      - "80:80"
-    depends_on:
-      - backend
+      - "5432:5432"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
     build: ./backend
+    container_name: backend_app
     ports:
       - "3000:3000"
     depends_on:
       - db
 
+  frontend:
+    build: ./frontend
+    container_name: frontend_app
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+```yaml
+version: '3.8'
+
+services:
   db:
     image: mysql:8
+    container_name: mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: hola_db
     ports:
       - "3306:3306"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./backend
+    container_name: backend_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: frontend_app
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
