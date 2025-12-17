@@ -4,18 +4,15 @@
   <title>Hola Mundo Frontend</title>
 </head>
 <body>
-  <h1>Frontend</h1>
-  <button onclick="saludar()">Saludar</button>
-  <p id="respuesta"></p>
+  <h1>Hola Mundo</h1>
+  <p id="mensaje">Cargando...</p>
 
   <script>
-    function saludar() {
-      fetch("http://localhost:3000/")
-        .then(res => res.text())
-        .then(data => {
-          document.getElementById("respuesta").innerText = data;
-        });
-    }
+    fetch('http://localhost:3000/mensaje')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('mensaje').innerText = data.texto;
+      });
   </script>
 </body>
 </html>
