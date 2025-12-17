@@ -1,22 +1,24 @@
 const express = require('express');
-const mysql = require('mysql2');
+const { Pool } = require('pg');
 const cors = require('cors');
 
 const app = express();
 app.use(cors());
 
-const db = mysql.createConnection({
+const pool = new Pool({
   host: 'db',
-  user: 'root',
-  password: 'root',
+  user: 'postgresql',
+  password: 'dayana',
   database: 'holamundo'
 });
 
-app.get('/mensaje', (req, res) => {
-  db.query('SELECT texto FROM mensajes LIMIT 1', (err, result) => {
-    if (err) return res.status(500).send(err);
-    res.json(result[0]);
-  });
+app.get('/mensaje', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT texto FROM mensajes LIMIT 1');
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 app.listen(3000, () => {
