@@ -1,7 +1,7 @@
-CREATE TABLE mensajes (
-id SERIAL PRIMARY KEY,
-texto VARCHAR(100)
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY,
+  text VARCHAR(100)
 );
 
-
-INSERT INTO mensajes (texto) VALUES ('Hola Mundo desde PostgreSQL');
+INSERT INTO messages (text)
+VALUES ('Hello World from PostgreSQL');

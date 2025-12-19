@@ -1,9 +1,8 @@
-version: "3.8"
-
 services:
   db:
     image: postgres:15
     container_name: postgres_db
+    restart: always
     environment:
       POSTGRES_USER: postgresql
       POSTGRES_PASSWORD: dayana
@@ -15,7 +14,9 @@ services:
 
   backend:
     build: ./backend
+    image: class-work-backend:latest
     container_name: backend_app
+    restart: always
     ports:
       - "3000:3000"
     depends_on:
@@ -23,7 +24,9 @@ services:
 
   frontend:
     build: ./frontend
+    image: class-work-frontend:latest
     container_name: frontend_app
+    restart: always
     ports:
       - "8080:80"
     depends_on:
